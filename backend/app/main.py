@@ -10,7 +10,17 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-from app.api import hash_tools, health, jwt_tools, json_tools, password_tools, uuid_tools
+from app.api import (
+    dns_tools,
+    hash_tools,
+    headers_tools,
+    health,
+    jwt_tools,
+    json_tools,
+    password_tools,
+    ssl_tools,
+    uuid_tools,
+)
 from app.core.config import get_settings
 from app.core.errors import register_error_handlers
 from app.core.rate_limit import limiter
@@ -51,6 +61,9 @@ app.include_router(jwt_tools.router, prefix=settings.api_prefix)
 app.include_router(hash_tools.router, prefix=settings.api_prefix)
 app.include_router(password_tools.router, prefix=settings.api_prefix)
 app.include_router(uuid_tools.router, prefix=settings.api_prefix)
+app.include_router(dns_tools.router, prefix=settings.api_prefix)
+app.include_router(ssl_tools.router, prefix=settings.api_prefix)
+app.include_router(headers_tools.router, prefix=settings.api_prefix)
 
 
 @app.get("/")

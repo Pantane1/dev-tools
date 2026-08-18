@@ -24,7 +24,16 @@ export async function apiPost<TResponse>(path: string, body: unknown): Promise<T
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
+  return handleResponse<TResponse>(res);
+}
 
+export async function apiGet<TResponse>(path: string, params?: Record<string, string>): Promise<TResponse> {
+  const query = params ? `?${new URLSearchParams(params).toString()}` : "";
+  const res = await fetch(`${API_BASE}/api${path}${query}`, { method: "GET" });
+  return handleResponse<TResponse>(res);
+}
+
+async function handleResponse<TResponse>(res: Response): Promise<TResponse> {
   const data = await res.json().catch(() => null);
 
   if (!res.ok || !data || data.success === false) {
