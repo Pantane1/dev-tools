@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: pantane-devtools-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: ALLOWED_ORIGINS
+        sync: false   # set to your frontend URL after it deploys
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pantane-devtools-db
+          property: connectionString
+      - key: REDIS_URL
+        sync: false   # optional — leave unset to fall back to in-memory rate limiting
+
+  - type: web
+    name: pantane-devtools-web
+    runtime: node
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false   # set to your backend URL after it deploys
+
+databases:
+  - name: pantane-devtools-db
+    plan: free
+    databaseName: pantane_devtools
+    user: pantane
