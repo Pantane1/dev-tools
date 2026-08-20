@@ -15,8 +15,10 @@ from app.api import (
     hash_tools,
     headers_tools,
     health,
+    http_tools,
     jwt_tools,
     json_tools,
+    misc_tools,
     password_tools,
     ssl_tools,
     uuid_tools,
@@ -64,6 +66,8 @@ app.include_router(uuid_tools.router, prefix=settings.api_prefix)
 app.include_router(dns_tools.router, prefix=settings.api_prefix)
 app.include_router(ssl_tools.router, prefix=settings.api_prefix)
 app.include_router(headers_tools.router, prefix=settings.api_prefix)
+app.include_router(http_tools.router, prefix=settings.api_prefix)
+app.include_router(misc_tools.router, prefix=settings.api_prefix)
 
 
 @app.get("/")
