@@ -33,6 +33,11 @@ export async function apiGet<TResponse>(path: string, params?: Record<string, st
   return handleResponse<TResponse>(res);
 }
 
+export async function apiPostFormData<TResponse>(path: string, formData: FormData): Promise<TResponse> {
+  const res = await fetch(`${API_BASE}/api${path}`, { method: "POST", body: formData });
+  return handleResponse<TResponse>(res);
+}
+
 async function handleResponse<TResponse>(res: Response): Promise<TResponse> {
   const data = await res.json().catch(() => null);
 

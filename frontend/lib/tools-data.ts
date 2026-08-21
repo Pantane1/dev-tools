@@ -94,15 +94,15 @@ export const TOOLS: ToolMeta[] = [
   { slug: "yaml-json", name: "YAML ↔ JSON Converter", description: "Convert between YAML and JSON.", category: "Developer", keywords: ["yaml", "json", "convert"], status: "live" },
   { slug: "ip", name: "IP Information", description: "Look up basic information about an IP address.", category: "Security", keywords: ["ip", "address", "geolocation"], status: "live" },
   { slug: "api-tester", name: "HTTP Request Tester", description: "Send GET, POST, PUT, PATCH or DELETE requests and inspect the response.", category: "Networking", keywords: ["http", "api", "request", "postman"], status: "live" },
-  { slug: "ip-lookup", name: "IP Address Lookup", description: "Look up ownership and network info for an IP.", category: "Networking", keywords: ["ip", "whois", "lookup"], status: "coming-soon" },
-  { slug: "port-checker", name: "Port Checker", description: "Check whether a port is open on a host.", category: "Networking", keywords: ["port", "checker", "open"], status: "coming-soon" },
-  { slug: "ping", name: "Ping / Latency Checker", description: "Check round-trip latency to a host.", category: "Networking", keywords: ["ping", "latency"], status: "coming-soon" },
-  { slug: "whois", name: "WHOIS Lookup", description: "Look up domain registration details.", category: "Networking", keywords: ["whois", "domain"], status: "coming-soon" },
+  { slug: "ip-lookup", name: "IP Address Lookup", description: "Look up ownership and network info for an IP.", category: "Networking", keywords: ["ip", "whois", "lookup"], status: "live" },
+  { slug: "port", name: "Port Checker", description: "Check whether a port is open on a host.", category: "Networking", keywords: ["port", "checker", "open"], status: "live" },
+  { slug: "ping", name: "Ping / Latency Checker", description: "Check round-trip latency to a host.", category: "Networking", keywords: ["ping", "latency"], status: "live" },
+  { slug: "whois", name: "WHOIS Lookup", description: "Look up domain registration details.", category: "Networking", keywords: ["whois", "domain"], status: "live" },
   { slug: "csv-json", name: "CSV ↔ JSON Converter", description: "Convert between CSV and JSON.", category: "Data", keywords: ["csv", "json", "convert"], status: "live" },
   { slug: "text-stats", name: "Text Statistics", description: "Count characters, words, lines and estimate reading time.", category: "Data", keywords: ["text", "words", "characters", "reading time"], status: "live" },
-  { slug: "markdown", name: "Markdown Preview", description: "Preview rendered Markdown side by side with the source.", category: "Data", keywords: ["markdown", "preview"], status: "coming-soon" },
+  { slug: "markdown", name: "Markdown Preview", description: "Preview rendered Markdown side by side with the source.", category: "Data", keywords: ["markdown", "preview"], status: "live" },
   { slug: "qr", name: "QR Code Generator", description: "Generate QR codes from text, a URL, Wi-Fi credentials, email or phone.", category: "Data", keywords: ["qr", "code", "generator"], status: "live" },
-  { slug: "image-metadata", name: "Image Metadata Viewer", description: "Inspect EXIF and other metadata embedded in an image.", category: "Data", keywords: ["image", "metadata", "exif"], status: "coming-soon" },
+  { slug: "image-metadata", name: "Image Metadata Viewer", description: "Inspect EXIF and other metadata embedded in an image.", category: "Data", keywords: ["image", "metadata", "exif"], status: "live" },
 ];
 
 export const LIVE_TOOLS = TOOLS.filter((t) => t.status === "live");
