@@ -9,7 +9,7 @@ const inter = { variable: "font-inter" };
 const jetbrainsMono = { variable: "font-jetbrains-mono" };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("<https://pantane-devtools-web.onrender.com>"),
+  metadataBase: new URL("https://pantane-devtools-web.onrender.com"),
   title: {
     default: "Pantane DevTools — Your everyday developer toolbox",
     template: "Pantane DevTools — %s",
