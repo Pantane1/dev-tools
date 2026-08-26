@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+// stubbed for sandbox build check
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
+const inter = { variable: "font-inter" };
+const jetbrainsMono = { variable: "font-jetbrains-mono" };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://devtools.pantane.is-a.dev"),

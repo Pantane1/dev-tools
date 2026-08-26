@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Search, TerminalSquare } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { SearchDialog } from "@/components/SearchDialog";
+
+// Lazy-loaded: the search dialog's logic and markup are only needed once
+// the user actually opens it (click or ⌘K), so keeping it out of the
+// initial bundle shaves a small amount off first-load JS on every page.
+const SearchDialog = dynamic(() => import("@/components/SearchDialog").then((mod) => mod.SearchDialog), {
+  ssr: false,
+});
 
 export function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -36,6 +43,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
+              aria-label="Search tools"
               className="flex h-9 items-center gap-2 rounded-lg border border-border bg-surface-subtle px-3 text-sm text-ink-faint
                 transition-colors hover:text-ink-muted dark:border-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300"
             >

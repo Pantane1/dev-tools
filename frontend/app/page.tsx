@@ -5,7 +5,7 @@ import { LIVE_TOOLS, TOOLS } from "@/lib/tools-data";
 
 export default function HomePage() {
   const popular = TOOLS.filter((t) =>
-    ["json", "jwt", "hash", "dns", "ssl", "uuid"].includes(t.slug)
+    ["json", "jwt", "hash", "api-tester", "regex", "qr"].includes(t.slug)
   );
 
   return (
