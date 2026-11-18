@@ -31,7 +31,7 @@ export function Navbar() {
               Tools
             </Link>
             <a
-              href="https://pantane.is-a.dev"
+              href="https://www.pantane.is-a.dev"
               target="_blank"
               rel="noreferrer"
               className="transition-colors hover:text-ink dark:hover:text-slate-100"

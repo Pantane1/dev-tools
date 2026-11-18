@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { LIVE_TOOLS } from "@/lib/tools-data";
 
-const BASE_URL = "https://pantane-devtools-web.onrender.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://devtools.pantane.is-a.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

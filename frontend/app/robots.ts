@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://pantane-devtools-web.onrender.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://devtools.pantane.is-a.dev";
 
 export default function robots(): MetadataRoute.Robots {
   return {
