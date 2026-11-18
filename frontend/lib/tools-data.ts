@@ -43,11 +43,51 @@ export const TOOLS: ToolMeta[] = [
     status: "live",
   },
   {
+    slug: "bcrypt",
+    name: "Bcrypt Password Hash Generator",
+    description: "Generate and verify bcrypt password hashes entirely in your browser.",
+    category: "Security",
+    keywords: ["bcrypt", "password", "hash", "verify", "cost factor"],
+    status: "live",
+  },
+  {
+    slug: "session-secret",
+    name: "Session Secret Generator",
+    description: "Generate cryptographically secure session secrets and signing keys client-side.",
+    category: "Security",
+    keywords: ["session", "secret", "jwt", "signing key", "random"],
+    status: "live",
+  },
+  {
     slug: "uuid",
     name: "UUID Generator",
     description: "Generate one or many UUID v4 identifiers.",
     category: "Developer",
     keywords: ["uuid", "guid", "identifier", "v4"],
+    status: "live",
+  },
+  {
+    slug: "color",
+    name: "Color Converter",
+    description: "Convert between HEX, RGB, HSL and OKLCH with a live swatch and WCAG contrast checker.",
+    category: "Developer",
+    keywords: ["color", "hex", "rgb", "hsl", "oklch", "contrast"],
+    status: "live",
+  },
+  {
+    slug: "chmod",
+    name: "Unix chmod Calculator",
+    description: "Convert between octal and symbolic Unix file permissions.",
+    category: "Developer",
+    keywords: ["chmod", "permissions", "unix", "octal", "symbolic"],
+    status: "live",
+  },
+  {
+    slug: "cron",
+    name: "Cron Expression Generator",
+    description: "Build, validate and explain cron expressions with next-run previews.",
+    category: "Developer",
+    keywords: ["cron", "schedule", "expression", "crontab"],
     status: "live",
   },
 
@@ -103,6 +143,7 @@ export const TOOLS: ToolMeta[] = [
   { slug: "markdown", name: "Markdown Preview", description: "Preview rendered Markdown side by side with the source.", category: "Data", keywords: ["markdown", "preview"], status: "live" },
   { slug: "qr", name: "QR Code Generator", description: "Generate QR codes from text, a URL, Wi-Fi credentials, email or phone.", category: "Data", keywords: ["qr", "code", "generator"], status: "live" },
   { slug: "image-metadata", name: "Image Metadata Viewer", description: "Inspect EXIF and other metadata embedded in an image.", category: "Data", keywords: ["image", "metadata", "exif"], status: "live" },
+  { slug: "diff", name: "Text Diff Checker", description: "Compare two texts line by line and see additions, removals and unchanged lines.", category: "Data", keywords: ["diff", "compare", "text", "changes"], status: "live" },
 ];
 
 export const LIVE_TOOLS = TOOLS.filter((t) => t.status === "live");

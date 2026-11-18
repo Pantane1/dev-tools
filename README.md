@@ -2,17 +2,17 @@
 
 Your everyday developer toolbox — fast, simple utilities for developers, students, sysadmins and security enthusiasts.
 
-> **Status:** All 27 tools from the original spec are live. Deployed on Render.
+> **Status:** All 32 tools are live. Deployed on Render.
 
 ## Features
 
-**Developer:** JSON Formatter, Base64 Encoder/Decoder, UUID Generator, Regex Tester, Timestamp Converter, URL Encoder/Decoder, HTML Entity Encoder/Decoder, YAML ↔ JSON Converter
+**Developer:** JSON Formatter, Base64 Encoder/Decoder, UUID Generator, Regex Tester, Timestamp Converter, URL Encoder/Decoder, HTML Entity Encoder/Decoder, YAML ↔ JSON Converter, Cron Expression Generator, Color Converter, Unix chmod Calculator
 
-**Security:** JWT Decoder, Hash Generator (MD5–SHA512), Password Generator, HTTP Security Headers Checker, SSL/TLS Checker, DNS Security Checker, IP Information
+**Security:** JWT Decoder, Hash Generator (MD5–SHA512), Password Generator, HTTP Security Headers Checker, SSL/TLS Checker, DNS Security Checker, IP Information, Bcrypt Password Hash Generator, Session Secret Generator
 
 **Networking:** DNS Lookup, HTTP Request Tester (API Tester), IP Address Lookup, Port Checker, Ping/Latency Checker, WHOIS Lookup
 
-**Data:** CSV ↔ JSON Converter, Text Statistics, Markdown Preview, QR Code Generator, Image Metadata Viewer
+**Data:** CSV ↔ JSON Converter, Text Statistics, Markdown Preview, QR Code Generator, Image Metadata Viewer, Text Diff Checker
 
 Plus: global search (`⌘K` / `Ctrl+K`), light/dark mode, responsive & keyboard-accessible UI, per-page SEO metadata, and a sitemap.
 
@@ -147,7 +147,7 @@ Every tool page has its own `<title>`, meta description, and Open Graph tags (se
 
 ## Database
 
-All 27 tools are stateless — no tool input, password, JWT, image, or scanned data is ever stored. Postgres is wired up in `docker-compose.yml` for future `tool_usage` (anonymized counts) and optional `users` (saved tools/favorites) tables, neither of which exists yet.
+All 32 tools are stateless — no tool input, password, JWT, image, or scanned data is ever stored. Postgres is wired up in `docker-compose.yml` for future `tool_usage` (anonymized counts) and optional `users` (saved tools/favorites) tables, neither of which exists yet.
 
 ## Roadmap
 
