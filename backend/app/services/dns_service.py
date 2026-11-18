@@ -18,6 +18,7 @@ from app.schemas.dns_schema import RECORD_TYPES, DnsCheckItem, DnsRecord
 
 TIMEOUT = 5.0
 CACHE_TTL_SECONDS = 60
+MAX_CACHE_ENTRIES = 256
 _lookup_cache: dict[str, tuple[float, list[DnsRecord]]] = {}
 _security_cache: dict[str, tuple[float, list[DnsCheckItem], int]] = {}
 
@@ -26,7 +27,17 @@ def _cache_get(cache: dict, key: str):
     entry = cache.get(key)
     if entry and (time.time() - entry[0]) < CACHE_TTL_SECONDS:
         return entry[1:]
+    if entry:
+        # expired — drop it
+        cache.pop(key, None)
     return None
+
+
+def _cache_put(cache: dict, key: str, value) -> None:
+    if len(cache) >= MAX_CACHE_ENTRIES and key not in cache:
+        oldest_key = min(cache, key=lambda k: cache[k][0])
+        del cache[oldest_key]
+    cache[key] = value
 
 
 def _resolver() -> dns.resolver.Resolver:
@@ -70,7 +81,7 @@ def lookup_records(domain: str) -> list[DnsRecord]:
     if not results:
         raise AppError("NO_RECORDS_FOUND", f"No DNS records found for '{domain}'.")
 
-    _lookup_cache[domain] = (time.time(), results)
+    _cache_put(_lookup_cache, domain, (time.time(), results))
     return results
 
 
@@ -144,5 +155,5 @@ def check_security(domain: str, dkim_selector: str | None) -> tuple[list[DnsChec
         checks.append(DnsCheckItem(name="CAA", status="fail", detail="No CAA record found — any CA can issue certificates for this domain."))
 
     result_score = min(score, 100)
-    _security_cache[cache_key] = (time.time(), checks, result_score)
+    _cache_put(_security_cache, cache_key, (time.time(), checks, result_score))
     return checks, result_score

@@ -5,7 +5,13 @@ import yaml
 from app.core.errors import AppError
 
 
+MAX_INPUT_BYTES = 2_000_000
+
+
 def process(content: str, direction: str) -> str:
+    if len(content.encode("utf-8")) > MAX_INPUT_BYTES:
+        from app.core.errors import AppError
+        raise AppError("PAYLOAD_TOO_LARGE", "Input is too large to process.", status_code=413)
     if direction == "yaml_to_json":
         try:
             parsed = yaml.safe_load(content)

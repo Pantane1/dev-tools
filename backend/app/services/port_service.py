@@ -16,11 +16,11 @@ TIMEOUT = 3.0
 
 def check_port(host: str, port: int) -> dict:
     host = host.strip()
-    resolve_and_validate_host(host)
+    ips = resolve_and_validate_host(host)
 
     start = time.perf_counter()
     try:
-        with socket.create_connection((host, port), timeout=TIMEOUT):
+        with socket.create_connection((ips[0], port), timeout=TIMEOUT):
             elapsed_ms = int((time.perf_counter() - start) * 1000)
             return {"host": host, "port": port, "open": True, "response_time_ms": elapsed_ms}
     except (socket.timeout, ConnectionRefusedError, OSError):

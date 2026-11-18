@@ -6,12 +6,19 @@ import { cn } from "@/lib/utils";
 
 export function CopyButton({ value, className }: { value: string; className?: string }) {
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(false);
 
   async function handleCopy() {
     if (!value) return;
-    await navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    setError(false);
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setError(true);
+      setTimeout(() => setError(false), 1500);
+    }
   }
 
   return (
@@ -19,6 +26,7 @@ export function CopyButton({ value, className }: { value: string; className?: st
       type="button"
       onClick={handleCopy}
       disabled={!value}
+      aria-live="polite"
       className={cn(
         "inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-ink-muted",
         "transition-colors hover:bg-surface-subtle hover:text-ink disabled:cursor-not-allowed disabled:opacity-50",
@@ -26,8 +34,8 @@ export function CopyButton({ value, className }: { value: string; className?: st
         className
       )}
     >
-      {copied ? <Check size={14} className="text-accent-600" /> : <Copy size={14} />}
-      {copied ? "Copied" : "Copy"}
+      {copied ? <Check size={14} className="text-accent-600" /> : error ? <Copy size={14} className="text-danger-500" /> : <Copy size={14} />}
+      {copied ? "Copied" : error ? "Failed" : "Copy"}
     </button>
   );
 }

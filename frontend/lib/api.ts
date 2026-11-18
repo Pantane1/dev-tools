@@ -18,8 +18,16 @@ export class ApiError extends Error {
   }
 }
 
+const REQUEST_TIMEOUT_MS = 15_000;
+
+function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  return fetch(input, { ...init, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
 export async function apiPost<TResponse>(path: string, body: unknown): Promise<TResponse> {
-  const res = await fetch(`${API_BASE}/api${path}`, {
+  const res = await fetchWithTimeout(`${API_BASE}/api${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -29,12 +37,12 @@ export async function apiPost<TResponse>(path: string, body: unknown): Promise<T
 
 export async function apiGet<TResponse>(path: string, params?: Record<string, string>): Promise<TResponse> {
   const query = params ? `?${new URLSearchParams(params).toString()}` : "";
-  const res = await fetch(`${API_BASE}/api${path}${query}`, { method: "GET" });
+  const res = await fetchWithTimeout(`${API_BASE}/api${path}${query}`, { method: "GET" });
   return handleResponse<TResponse>(res);
 }
 
 export async function apiPostFormData<TResponse>(path: string, formData: FormData): Promise<TResponse> {
-  const res = await fetch(`${API_BASE}/api${path}`, { method: "POST", body: formData });
+  const res = await fetchWithTimeout(`${API_BASE}/api${path}`, { method: "POST", body: formData });
   return handleResponse<TResponse>(res);
 }
 

@@ -13,7 +13,7 @@ from app.schemas.hash_schema import SUPPORTED_ALGORITHMS, HashResult
 CHUNK_SIZE = 1024 * 1024  # 1MB
 
 
-def _validate_algorithms(algorithms: list[str]) -> list[str]:
+def validate_algorithms(algorithms: list[str]) -> list[str]:
     normalized = [a.lower() for a in algorithms]
     unknown = [a for a in normalized if a not in SUPPORTED_ALGORITHMS]
     if unknown:
@@ -25,7 +25,7 @@ def _validate_algorithms(algorithms: list[str]) -> list[str]:
 
 
 def hash_text(content: str, algorithms: list[str]) -> list[HashResult]:
-    normalized = _validate_algorithms(algorithms)
+    normalized = validate_algorithms(algorithms)
     data = content.encode("utf-8")
     results = []
     for algo in normalized:
@@ -35,7 +35,7 @@ def hash_text(content: str, algorithms: list[str]) -> list[HashResult]:
 
 
 def hash_file(file_obj: BinaryIO, algorithms: list[str]) -> list[HashResult]:
-    normalized = _validate_algorithms(algorithms)
+    normalized = validate_algorithms(algorithms)
     hashers = {algo: hashlib.new(algo) for algo in normalized}
 
     while True:

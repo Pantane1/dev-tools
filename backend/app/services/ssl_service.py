@@ -38,12 +38,12 @@ def _parse_cert_date(value: str) -> datetime:
 
 def check_ssl(domain: str) -> dict:
     domain = _clean_domain(domain)
-    resolve_and_validate_host(domain)
+    ips = resolve_and_validate_host(domain)
 
     context = ssl.create_default_context()
 
     try:
-        with socket.create_connection((domain, PORT), timeout=TIMEOUT) as sock:
+        with socket.create_connection((ips[0], PORT), timeout=TIMEOUT) as sock:
             with context.wrap_socket(sock, server_hostname=domain) as tls_sock:
                 cert = tls_sock.getpeercert()
                 tls_version = tls_sock.version() or "unknown"

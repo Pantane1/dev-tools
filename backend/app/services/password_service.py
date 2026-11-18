@@ -44,6 +44,9 @@ def _strength_label(entropy_bits: float) -> str:
 
 def generate_passwords(req: PasswordGenerateRequest) -> list[PasswordItem]:
     pool = _charset(req)
+    if not pool:
+        from app.core.errors import AppError
+        raise AppError("INVALID_INPUT", "No characters available for the selected options.")
     entropy_bits = req.length * math.log2(len(pool))
 
     passwords = []

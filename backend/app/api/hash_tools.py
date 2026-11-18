@@ -15,6 +15,8 @@ MAX_FILE_BYTES = 200 * 1024 * 1024  # 200MB
 @router.post("/text", response_model=HashTextResponse)
 @limiter.limit(settings.rate_limit_default)
 async def hash_text(request: Request, body: HashTextRequest):
+    if len(body.content.encode("utf-8")) > settings.max_input_bytes:
+        raise AppError("PAYLOAD_TOO_LARGE", "Input is too large to process.", status_code=413)
     results = hash_service.hash_text(body.content, body.algorithms)
     return HashTextResponse(results=results)
 
@@ -26,10 +28,13 @@ async def hash_file(
     file: UploadFile = File(...),
     algorithms: str = Form("sha256"),
 ):
+    import hashlib
+
     algo_list = [a.strip() for a in algorithms.split(",") if a.strip()]
+    normalized = hash_service.validate_algorithms(algo_list)
+    hashers = {algo: hashlib.new(algo) for algo in normalized}
 
     size = 0
-    chunks = []
     while True:
         chunk = await file.read(1024 * 1024)
         if not chunk:
@@ -37,10 +42,10 @@ async def hash_file(
         size += len(chunk)
         if size > MAX_FILE_BYTES:
             raise AppError("PAYLOAD_TOO_LARGE", "File is too large to hash (max 200MB).", status_code=413)
-        chunks.append(chunk)
+        for hasher in hashers.values():
+            hasher.update(chunk)
 
-    import io
+    from app.schemas.hash_schema import HashResult
 
-    buffer = io.BytesIO(b"".join(chunks))
-    results = hash_service.hash_file(buffer, algo_list)
+    results = [HashResult(algorithm=algo, hash=hasher.hexdigest()) for algo, hasher in hashers.items()]
     return HashFileResponse(filename=file.filename or "upload", size_bytes=size, results=results)

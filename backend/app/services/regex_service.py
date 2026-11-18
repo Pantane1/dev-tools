@@ -12,6 +12,7 @@ from app.schemas.misc_schema import RegexMatch
 
 FLAG_MAP = {"i": re.IGNORECASE, "m": re.MULTILINE, "s": re.DOTALL}
 MAX_TEXT_LEN = 100_000
+MAX_PATTERN_LEN = 2_000
 MATCH_TIMEOUT = 2.0
 
 
@@ -33,6 +34,8 @@ def _find_all(compiled: re.Pattern, text: str) -> list[RegexMatch]:
 
 
 def test_regex(pattern: str, text: str, flags: list[str]) -> list[RegexMatch]:
+    if len(pattern) > MAX_PATTERN_LEN:
+        raise AppError("INPUT_TOO_LARGE", "Pattern is too long.")
     if len(text) > MAX_TEXT_LEN:
         raise AppError("INPUT_TOO_LARGE", "Test text is too large.")
 

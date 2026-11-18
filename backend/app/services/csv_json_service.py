@@ -26,7 +26,13 @@ def process(content: str, direction: str) -> str:
     if not parsed:
         return ""
 
-    fieldnames = list({key for row in parsed for key in row.keys()})
+    fieldnames: list[str] = []
+    seen: set[str] = set()
+    for row in parsed:
+        for key in row.keys():
+            if key not in seen:
+                seen.add(key)
+                fieldnames.append(key)
     output = io.StringIO()
     writer = csv.DictWriter(output, fieldnames=fieldnames)
     writer.writeheader()
