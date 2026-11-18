@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Search, TerminalSquare } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { InstallAppButton } from "@/components/InstallAppButton";
 
 // Lazy-loaded: the search dialog's logic and markup are only needed once
 // the user actually opens it (click or ⌘K), so keeping it out of the
@@ -40,6 +41,7 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <InstallAppButton />
             <button
               type="button"
               onClick={() => setSearchOpen(true)}

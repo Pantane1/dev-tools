@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -16,11 +17,21 @@ export const metadata: Metadata = {
   },
   description:
     "Fast, simple utilities for developers, students, sysadmins and security enthusiasts — JSON, JWT, hashing, passwords, DNS, SSL and more.",
+  themeColor: "#2563EB",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Pantane DevTools",
+  },
   openGraph: {
     title: "Pantane DevTools",
     description: "Fast, simple utilities for developers, students, sysadmins and security enthusiasts.",
     type: "website",
   },
+};
+
+export const viewport = {
+  themeColor: "#2563EB",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -31,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <ServiceWorkerRegistration />
         </ThemeProvider>
       </body>
     </html>
